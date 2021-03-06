@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from apyori import apriori
 
-data = pd.read_csv('dataset/accidents copy.dat', header=None, sep=" ")
+data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
 print(data.head())
 
 records = []
-for i in range(0, data.shape[0]):
-    records.append([data.values[i, j] for j in range(0, data.shape[1])])
+for i in range(data.shape[0]):
+    records.append([str(data.values[i, j]) for j in range(data.shape[1])])
 
 print(records)
 
