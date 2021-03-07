@@ -1,21 +1,26 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
 from apyori import apriori
+import pandas as pd
 from timeit import default_timer as timer
 
 minimum_support = 0.004
 minimum_confidence = 0.5
-minimum_lift = 3
+minimum_lift = 0
 minimum_length = 2
 
-data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
-# data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
+# data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
+data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
 print(data.head())
 
+# pre-processing data
 records = []
 for i in range(data.shape[0]):
-    records.append([str(data.values[i, j]) for j in range(data.shape[1])])
+    record = []
+    for j in range(data.shape[1]):
+        val = data.values[i, j]
+        if pd.notnull(val):
+            record.append(str(val))
+    records.append(record)
+print(records[0])
 
 print('Start apriori algorithm')
 start = timer()
