@@ -3,24 +3,22 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth
 from timeit import default_timer as timer
 
-minimum_support = 0.4
+minimum_support = 0.8
 minimum_confidence = 0
 minimum_lift = 0
 minimum_length = 2
 
-data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
-# data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
-print(data.head())
+file_name = ['dataset/chess.dat',' ']
+# file_name = ['dataset/store_data.csv', ',']
 
-# pre-processing data
+# # pre-processing data
 dataset = []
-for i in range(data.shape[0]):
-    record = []
-    for j in range(data.shape[1]):
-        val = data.values[i, j]
-        if pd.notnull(val):
-            record.append(str(val))
-    dataset.append(record)
+lines = open(file_name[0], 'r')
+for line in lines:
+    line = line.strip()
+    if not line:
+        continue
+    dataset.append(line.split(file_name[1]))
 print(dataset[0])
 
 te = TransactionEncoder()
@@ -30,10 +28,12 @@ print(df.head())
 
 print('Start fpgrowth algorithm')
 start = timer()
-association_rules = fpgrowth(df, min_support=minimum_support, use_colnames=True)
+association_rules = fpgrowth(
+    df, min_support=minimum_support, use_colnames=True)
 used_time = timer()-start
 
-association_rules.to_csv('fpgrowth_ mlxtend_output.csv', index=False, header=True)
+association_rules.to_csv('fpgrowth_ mlxtend_output.csv',
+                         index=False, header=True)
 print(association_rules)
 
 print('\nminimum support:', minimum_support)
