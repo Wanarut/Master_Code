@@ -2,13 +2,13 @@ from fpgrowth_py import fpgrowth
 import pandas as pd
 from timeit import default_timer as timer
 
-minimum_support = 0.04
-minimum_confidence = 0.5
+minimum_support = 0.004
+minimum_confidence = 0
 minimum_lift = 0
 minimum_length = 2
 
-data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
-# data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
+# data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
+data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
 print(data.head())
 
 # pre-processing data
@@ -32,3 +32,11 @@ for item in association_rules:
     print("Rule:", item[0], "->", item[1])
     print("Support: " + str(item[2]))
     print("=====================================")
+
+print('\nminimum support:', minimum_support)
+print('minimum confidence:', minimum_confidence)
+print('minimum lift:', minimum_lift)
+print('minimum length:', minimum_length)
+print('There are', len(records), len(records[0]), 'transections')
+print('Found', len(association_rules), 'rules')
+print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
