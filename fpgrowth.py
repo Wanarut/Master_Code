@@ -1,42 +1,47 @@
-from fpgrowth_py import fpgrowth
 import pandas as pd
 from timeit import default_timer as timer
+from fpgrowth_py import fpgrowth
 
-minimum_support = 0.004
+
+# file_name = ['dataset/T10I4D100K.dat', ' ']
+# minimum_support = 0.005
+file_name = ['dataset/chess.dat', ' ']
+minimum_support = 0.9
+# file_name = ['dataset/store_data.csv', ',']
+# minimum_support = 0.005
+
 minimum_confidence = 0
-minimum_lift = 0
+minimum_lift = 1
 minimum_length = 2
 
-# data = pd.read_csv('dataset/chess.dat', header=None, sep=" ")
-data = pd.read_csv('dataset/store_data.csv', header=None, sep=",")
-print(data.head())
+# # pre-processing data
+dataset = []
+lines = open(file_name[0], 'r')
+for line in lines:
+    line = line.strip()
+    if not line:
+        continue
+    dataset.append(line.split(file_name[1]))
+print(dataset[0])
 
-# pre-processing data
-records = []
-for i in range(data.shape[0]):
-    record = []
-    for j in range(data.shape[1]):
-        val = data.values[i, j]
-        if pd.notnull(val):
-            record.append(str(val))
-    records.append(record)
-print(records[0])
-
-print('Start fpgrowth algorithm')
 start = timer()
-freqItemSet, association_rules = fpgrowth(
-    records, minSupRatio=minimum_support, minConf=minimum_confidence)
+print('Start fpgrowth algorithm')
+rules = []
+try:
+    freqItemSet, rules = fpgrowth(dataset, minSupRatio=minimum_support, minConf=minimum_confidence)   
+except:
+    print('fpgrowth algorithm Fail')
 used_time = timer()-start
 
-for item in association_rules:
-    print("Rule:", item[0], "->", item[1])
-    print("Support: " + str(item[2]))
-    print("=====================================")
+if len(rules) > 0 :
+    rules = pd.DataFrame(rules, columns={'antecedents','consequents','support'})
+    print(rules.head())
+    rules.to_csv('fpgrowth_output.csv',index=False, header=True)
 
 print('\nminimum support:', minimum_support)
 print('minimum confidence:', minimum_confidence)
 print('minimum lift:', minimum_lift)
 print('minimum length:', minimum_length)
-print('There are', len(records), len(records[0]), 'transections')
-print('Found', len(association_rules), 'rules')
+print('There are', len(dataset), len(dataset[0]), 'transections')
+print('Found', len(rules), 'rules')
 print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
