@@ -5,10 +5,10 @@ from fpgrowth_py import fpgrowth
 
 # file_name = ['dataset/T10I4D100K.dat', ' ']
 # minimum_support = 0.005
-file_name = ['dataset/chess.dat', ' ']
-minimum_support = 0.9
-# file_name = ['dataset/store_data.csv', ',']
-# minimum_support = 0.005
+# file_name = ['dataset/chess.dat', ' ']
+# minimum_support = 0.9
+file_name = ['dataset/store_data.csv', ',']
+minimum_support = 0.004
 
 minimum_confidence = 0
 minimum_lift = 1
@@ -34,7 +34,7 @@ except:
 used_time = timer()-start
 
 if len(rules) > 0 :
-    rules = pd.DataFrame(rules, columns={'antecedents','consequents','support'})
+    rules = pd.DataFrame(rules, columns=('antecedents','consequents','support'))
     print(rules.head())
     rules.to_csv('fpgrowth_output.csv',index=False, header=True)
 

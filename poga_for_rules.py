@@ -9,10 +9,10 @@ import sys
 epsilon = sys.float_info.epsilon
 
 # Set general parameters
-starting_population_size = 100
-maximum_generation = 10
-minimum_population_size = 80
-maximum_population_size = 100
+starting_population_size = 10
+maximum_generation = 5
+minimum_population_size = 8
+maximum_population_size = 10
 print_interval = 1
 xover_rate = 0.5
 mutat_rate = 0.5
@@ -42,6 +42,7 @@ def main():
     print(df.head())
 
     start = timer()
+    # exit()
     print('Start POGA Optimization')
     rules = []
     rules = POGA(df)
@@ -61,8 +62,9 @@ def main():
 
 
 def POGA(dataset):
-    rn.seed(69)
+    # rn.seed(69)
     population = create_population(dataset, starting_population_size)
+    population = randomly_mutate_population(population)
 
     for generation in range(maximum_generation):
         mstart = timer()
@@ -126,7 +128,7 @@ def breed_population(population):
     # Add the child population to the parent population
     # In this method we allow parents and children to compete to be kept
     new_population = np.array(new_population)
-    new_population = randomly_mutate_population(new_population)
+    # new_population = randomly_mutate_population(new_population)
     population = np.vstack((population, new_population))
     population = np.unique(population, axis=0)
 
