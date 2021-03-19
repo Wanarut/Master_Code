@@ -5,10 +5,15 @@ from fpgrowth_py import fpgrowth
 
 # file_name = ['dataset/T10I4D100K.dat', ' ']
 # minimum_support = 0.005
-# file_name = ['dataset/chess.dat', ' ']
-# minimum_support = 0.9
-file_name = ['dataset/store_data.csv', ',']
-minimum_support = 0.004
+
+file_name = ['dataset/chess.dat', ' ']
+minimum_support = 0.7
+# There are 3196 37 transections
+# Found 8111370 rules
+# Use 0 days 08:41:24.381572500 second
+
+# file_name = ['dataset/store_data.csv', ',']
+# minimum_support = 0.004
 
 minimum_confidence = 0
 minimum_lift = 1

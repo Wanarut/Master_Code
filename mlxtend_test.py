@@ -5,10 +5,15 @@ from mlxtend.frequent_patterns import apriori, fpgrowth, fpmax, association_rule
 
 # file_name = ['dataset/T10I4D100K.dat', ' ']
 # minimum_support = 0.005
-# file_name = ['dataset/chess.dat', ' ']
-# minimum_support = 0.9
-file_name = ['dataset/store_data.csv', ',']
-minimum_support = 0.005
+
+file_name = ['dataset/chess.dat', ' ']
+minimum_support = 0.7
+# There are (3196, 75) transections
+# Found 7060259 rules
+# Use 0 days 00:01:26.117246400 second
+
+# file_name = ['dataset/store_data.csv', ',']
+# minimum_support = 0.005
 
 minimum_confidence = 0
 minimum_lift = 1
