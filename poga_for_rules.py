@@ -46,19 +46,20 @@ def main():
     print('Start POGA Optimization')
     rules = []
     rules = POGA(df)
-    # try:
-    #     rules = POGA(df)
-    # except:
-    #     print('POGA Fail')
+    try:
+        rules = POGA(df)
+    except:
+        print('POGA Fail')
     used_time = timer()-start
-
-    if len(rules) > 0:
-        print(rules.head())
-        rules.to_csv('mlxtend_output.csv', index=False, header=True)
 
     print('There are', df.shape, 'transections')
     print('Found', len(rules), 'rules')
     print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
+    exit()
+
+    if len(rules) > 0:
+        print(rules.head())
+        rules.to_csv('poga_output.csv', index=False, header=True)
 
 
 def POGA(dataset):
@@ -95,7 +96,7 @@ def POGA(dataset):
 
     for score in scores:
         print(score)
-    exit()
+    # exit()
     return population
 
 

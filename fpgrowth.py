@@ -38,11 +38,6 @@ except:
     print('fpgrowth algorithm Fail')
 used_time = timer()-start
 
-if len(rules) > 0 :
-    rules = pd.DataFrame(rules, columns=('antecedents','consequents','support'))
-    print(rules.head())
-    rules.to_csv('fpgrowth_output.csv',index=False, header=True)
-
 print('\nminimum support:', minimum_support)
 print('minimum confidence:', minimum_confidence)
 print('minimum lift:', minimum_lift)
@@ -50,3 +45,8 @@ print('minimum length:', minimum_length)
 print('There are', len(dataset), len(dataset[0]), 'transections')
 print('Found', len(rules), 'rules')
 print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
+
+if len(rules) > 0 :
+    rules = pd.DataFrame(rules, columns=('antecedents','consequents','support'))
+    print(rules.head())
+    rules.to_csv('fpgrowth_output.csv',index=False, header=True)

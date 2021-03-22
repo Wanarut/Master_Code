@@ -45,10 +45,6 @@ except:
     print('mlxtend algorithm Fail')
 used_time = timer()-start
 
-if len(rules) > 0 :
-    print(rules.head())
-    rules.to_csv('mlxtend_output.csv',index=False, header=True)
-
 print('\nminimum support:', minimum_support)
 print('minimum confidence:', minimum_confidence)
 print('minimum lift:', minimum_lift)
@@ -56,3 +52,7 @@ print('minimum length:', minimum_length)
 print('There are', df.shape, 'transections')
 print('Found', len(rules), 'rules')
 print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
+
+if len(rules) > 0 :
+    print(rules.head())
+    rules.to_csv('mlxtend_output.csv',index=False, header=True)
