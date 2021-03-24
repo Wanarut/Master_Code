@@ -9,10 +9,10 @@ import sys
 epsilon = sys.float_info.epsilon
 
 # Set general parameters
-starting_population_size = 10
+starting_population_size = 5
 maximum_generation = 5
-minimum_population_size = 8
-maximum_population_size = 10
+minimum_population_size = 4
+maximum_population_size = 5
 print_interval = 1
 xover_rate = 0.5
 mutat_rate = 0.5
@@ -21,13 +21,21 @@ n_mutation = 1
 slave_core = int(mp.cpu_count()-1)
 
 # file_name = ['dataset/T10I4D100K.dat', ' ']
-# file_name = ['dataset/chess.dat', ' ']
-file_name = ['dataset/store_data.csv', ',']
-# file_name = ['dataset/test_data.csv', ',']
+# minimum_support = 0.005
 
+# file_name = ['dataset/chess.dat', ' ']
+# minimum_support = 0.7
+# There are (3196, 75) transections
+# Found 7060259 rules
+# Use 0 days 00:01:26.117246400 second
+
+# file_name = ['dataset/store_data.csv', ',']
+# minimum_support = 0.004
+
+file_name = ['dataset/test_data.csv', ',']
 
 def main():
-    # # pre-processing data
+    # pre-processing data
     dataset = []
     lines = open(file_name[0], 'r')
     for line in lines:
@@ -46,10 +54,10 @@ def main():
     print('Start POGA Optimization')
     rules = []
     rules = POGA(df)
-    try:
-        rules = POGA(df)
-    except:
-        print('POGA Fail')
+    # try:
+    #     rules = POGA(df)
+    # except:
+    #     print('POGA Fail')
     used_time = timer()-start
 
     print('There are', df.shape, 'transections')
@@ -104,8 +112,8 @@ def create_population(df, population_size):
     population = df.sample(n=population_size)
     # print(population)
     population = population.to_numpy()
-    # print(population)
-    # exit()
+    print(population)
+    exit()
     return population
 
 # Crossover

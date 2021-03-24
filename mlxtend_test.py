@@ -6,20 +6,20 @@ from mlxtend.frequent_patterns import apriori, fpgrowth, fpmax, association_rule
 # file_name = ['dataset/T10I4D100K.dat', ' ']
 # minimum_support = 0.005
 
-file_name = ['dataset/chess.dat', ' ']
-minimum_support = 0.7
+# file_name = ['dataset/chess.dat', ' ']
+# minimum_support = 0.7
 # There are (3196, 75) transections
 # Found 7060259 rules
 # Use 0 days 00:01:26.117246400 second
 
-# file_name = ['dataset/store_data.csv', ',']
-# minimum_support = 0.005
+file_name = ['dataset/store_data.csv', ',']
+minimum_support = 0.004
 
-minimum_confidence = 0
+minimum_confidence = 0.5
 minimum_lift = 1
 minimum_length = 2
 
-# # pre-processing data
+# pre-processing data
 dataset = []
 lines = open(file_name[0], 'r')
 for line in lines:
@@ -40,7 +40,7 @@ try:
     # freqItemSet = apriori(df, min_support=minimum_support, use_colnames=True)
     freqItemSet = fpgrowth(df, min_support=minimum_support, use_colnames=True)
     # freqItemSet = fpmax(df, min_support=minimum_support, use_colnames=True)
-    rules = association_rules(freqItemSet, metric='lift', min_threshold=minimum_lift) 
+    rules = association_rules(freqItemSet, metric='confidence', min_threshold=minimum_confidence) 
 except:
     print('mlxtend algorithm Fail')
 used_time = timer()-start

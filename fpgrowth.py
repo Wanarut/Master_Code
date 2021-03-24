@@ -2,24 +2,23 @@ import pandas as pd
 from timeit import default_timer as timer
 from fpgrowth_py import fpgrowth
 
-
 # file_name = ['dataset/T10I4D100K.dat', ' ']
 # minimum_support = 0.005
 
-file_name = ['dataset/chess.dat', ' ']
-minimum_support = 0.7
+# file_name = ['dataset/chess.dat', ' ']
+# minimum_support = 0.7
 # There are 3196 37 transections
 # Found 8111370 rules
 # Use 0 days 08:41:24.381572500 second
 
-# file_name = ['dataset/store_data.csv', ',']
-# minimum_support = 0.004
+file_name = ['dataset/store_data.csv', ',']
+minimum_support = 0.004
 
-minimum_confidence = 0
+minimum_confidence = 0.5
 minimum_lift = 1
 minimum_length = 2
 
-# # pre-processing data
+# pre-processing data
 dataset = []
 lines = open(file_name[0], 'r')
 for line in lines:
@@ -46,7 +45,8 @@ print('There are', len(dataset), len(dataset[0]), 'transections')
 print('Found', len(rules), 'rules')
 print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
 
+# print(rules)
 if len(rules) > 0 :
-    rules = pd.DataFrame(rules, columns=('antecedents','consequents','support'))
+    rules = pd.DataFrame(rules, columns=('antecedents','consequents','confidence'))
     print(rules.head())
     rules.to_csv('fpgrowth_output.csv',index=False, header=True)
