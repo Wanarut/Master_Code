@@ -49,4 +49,4 @@ print('Use', pd.to_timedelta(used_time, unit='s'), 'second\n')
 if len(rules) > 0 :
     rules = pd.DataFrame(rules, columns=('antecedents','consequents','confidence'))
     print(rules.head())
-    rules.to_csv('fpgrowth_output.csv',index=False, header=True)
+    rules.to_csv('output_fpgrowth.csv',index=False, header=True)

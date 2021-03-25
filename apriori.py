@@ -66,4 +66,4 @@ if len(rules) > 0:
     ordered_statistics['support'] = rules['support']
     print(ordered_statistics.head())
 
-    ordered_statistics.to_csv('apriori_output.csv',index=False, header=True)
+    ordered_statistics.to_csv('output_apriori.csv',index=False, header=True)
