@@ -2,15 +2,18 @@
 
 import numpy as np
 from timeit import default_timer as timer
-from numba import vectorize
+from numba import vectorize, jit
 
 def powerByCPU(a, b):
     return a ** b
 
 @vectorize(['float32(float32, float32)'], target='cuda')
-def powerByGPU(a, b):
+def powerByGPU_vectorize(a, b):
     return a ** b
 
+@jit(nopython=True)
+def powerByGPU_jit(a, b):
+    return a ** b
 
 if __name__ == '__main__':
     n = 100000000
@@ -25,10 +28,16 @@ if __name__ == '__main__':
     print("without GPU:", timer()-start)
     if (n==3): print(c)
 
+    print('-------------vs-------------')
+    
+    start = timer()
+    c = powerByGPU_vectorize(a, b)
+    print("with GPU vectorize:", timer()-start)
+    if (n==3): print(c)
 
     print('-------------vs-------------')
     
     start = timer()
-    c = powerByGPU(a, b)
-    print("with GPU:", timer()-start)
+    c = powerByGPU_jit(a, b)
+    print("with GPU jit:", timer()-start)
     if (n==3): print(c)

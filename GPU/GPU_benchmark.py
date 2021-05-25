@@ -16,8 +16,7 @@
 
 import tensorflow as tf
 print("GPUs: ", tf.config.experimental.list_physical_devices('GPU'))
-exit()
 
-from ai_benchmark import AIBenchmark
-benchmark = AIBenchmark()
-results = benchmark.run()
+# from ai_benchmark import AIBenchmark
+# benchmark = AIBenchmark()
+# results = benchmark.run()
